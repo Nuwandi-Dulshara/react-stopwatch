@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 
 function Stopwatch() {
-  const [isRunning, setIsRunning] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const intervalIdRef = useRef(null);
-  const startTimeRef = useRef(0);
+  const [isRunning, setIsRunning] = useState(false); //A boolean state that determines if the stopwatch is currently running.
+  const [elapsedTime, setElapsedTime] = useState(0); // A state that keeps track of the elapsed time in milliseconds.
+  const intervalIdRef = useRef(null); //store the interval ID returned by setInterval
+  const startTimeRef = useRef(0); //stores the start time of the stopwatch
 
   useEffect(() => {
-    if (isRunning) {
+    if (isRunning) { //hook monitors the isRunning state. When isRunning becomes true, it starts an interval that updates
       intervalIdRef.current = setInterval(() => {
         setElapsedTime(Date.now() - startTimeRef.current);
       }, 10);
     } else {
-      clearInterval(intervalIdRef.current);
+      clearInterval(intervalIdRef.current);//isRunning is false, the interval is cleared using clearInterval.
     }
 
     return () => {
